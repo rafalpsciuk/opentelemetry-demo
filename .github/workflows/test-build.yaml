@@ -3,11 +3,11 @@ name: test-build
 on:
   push:
     paths:
-      - ./src/**
-      - ./test/**
-      - ./dynatrace/**
-      - ./docker-compose.yml
-      - ./.env.override
+      - src/**
+      - test/**
+      - dynatrace/**
+      - docker-compose.yml
+      - .env.override
 
 jobs:
   build:
