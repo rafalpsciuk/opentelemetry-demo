@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
 FROM golang:1.24-bookworm AS builder
@@ -28,37 +26,3 @@ EXPOSE ${CHECKOUT_PORT}
 
 ENTRYPOINT [ "./checkout" ]
 #ENTRYPOINT ["/bin/sh", "-c", "'./checkout'"]
-=======
-=======
->>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
-# Copyright The OpenTelemetry Authors
-# SPDX-License-Identifier: Apache-2.0
-
-
-FROM golang:1.22-alpine AS builder
-
-WORKDIR /usr/src/app/
-
-RUN --mount=type=cache,target=/go/pkg/mod/ \
-    --mount=type=bind,source=./src/checkout/go.sum,target=go.sum \
-    --mount=type=bind,source=./src/checkout/go.mod,target=go.mod \
-    go mod download
-
-RUN --mount=type=cache,target=/go/pkg/mod/ \
-    --mount=type=cache,target=/root/.cache/go-build \
-    --mount=type=bind,rw,source=./src/checkout,target=. \
-    go build -ldflags "-s -w" -o /go/bin/checkout/ ./
-
-FROM alpine
-
-WORKDIR /usr/src/app/
-
-COPY --from=builder /go/bin/checkout/ ./
-
-EXPOSE ${CHECKOUT_PORT}
-ENTRYPOINT ["/bin/sh", "-c", "'./checkout'"]
-
-<<<<<<< HEAD
->>>>>>> c20dadc (add dynatrace directory)
-=======
->>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
