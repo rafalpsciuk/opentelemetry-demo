@@ -5,12 +5,11 @@ name: "Build and Publish"
 on:
   push:
     branches:
-      - main
-      - test/build_actions_dapr
+      - dynatrace
 
 jobs:
   tag-from-commit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - id: commit
         uses: prompt/actions-commit-hash@v3

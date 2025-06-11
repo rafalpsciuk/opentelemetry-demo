@@ -17,7 +17,7 @@ jobs:
       version: "dev"
 
   markdownlint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: check out code
         uses: actions/checkout@v4
@@ -27,20 +27,20 @@ jobs:
         run: make markdownlint
 
   yamllint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: check out code
         uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.13"
       - name: install yamllint
         run: make install-yamllint
       - name: run yamllint
         run: yamllint . -f github
 
   misspell:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: check out code
         uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
 
   checklinks:
     name: linkspector
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Run linkspector
@@ -60,7 +60,7 @@ jobs:
           config_file: ".linkspector.yml"
 
   sanity:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: run sanitycheck.py
