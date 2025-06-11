@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - main
-      - test/build_actions_dapr
+      - test/build_actions
 
 jobs:
   tag-from-commit:
