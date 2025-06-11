@@ -1,6 +1,12 @@
 # Copyright The OpenTelemetry Authors
 # SPDX-License-Identifier: Apache-2.0
 
+<<<<<<< HEAD
+=======
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+
+>>>>>>> c20dadc (add dynatrace directory)
 
 FROM python:3.12-slim-bookworm AS base
 
@@ -15,6 +21,7 @@ RUN pip install --prefix="/reqs" -r requirements.txt
 FROM base
 WORKDIR /usr/src/app/
 COPY --from=builder /reqs /usr/local
+<<<<<<< HEAD
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 RUN playwright install --with-deps chromium
 
@@ -24,3 +31,10 @@ COPY ./dynatrace/locustfile.py .
 COPY ./dynatrace/people.json .
 
 ENTRYPOINT ["locust", "--skip-log-setup"]
+=======
+COPY ./dynatrace/locustfile.py .
+COPY ./dynatrace/people.json .
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
+RUN playwright install --with-deps chromium
+ENTRYPOINT ["locust", "--skip-log-setup"]
+>>>>>>> c20dadc (add dynatrace directory)
