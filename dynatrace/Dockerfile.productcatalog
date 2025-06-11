@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 FROM golang:1.24-bookworm AS builder
 
 WORKDIR /usr/src/app/
@@ -25,6 +26,8 @@ EXPOSE ${PRODUCT_CATALOG_PORT}
 ENTRYPOINT [ "./product-catalog" ]
 #ENTRYPOINT ["/bin/sh", "-c", "'./product-catalog'"]
 =======
+=======
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
 
 FROM golang:1.22-alpine AS builder
 
@@ -48,4 +51,7 @@ COPY --from=builder /go/bin/product-catalog/ ./
 
 EXPOSE ${PRODUCT_CATALOG_PORT}
 ENTRYPOINT ["/bin/sh", "-c", "'./product-catalog'"]
+<<<<<<< HEAD
 >>>>>>> c20dadc (add dynatrace directory)
+=======
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98

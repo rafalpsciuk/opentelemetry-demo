@@ -2,11 +2,17 @@
 # SPDX-License-Identifier: Apache-2.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 # Copyright The OpenTelemetry Authors
 # SPDX-License-Identifier: Apache-2.0
 
 >>>>>>> c20dadc (add dynatrace directory)
+=======
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
 
 FROM python:3.12-slim-bookworm AS base
 
@@ -22,6 +28,7 @@ FROM base
 WORKDIR /usr/src/app/
 COPY --from=builder /reqs /usr/local
 <<<<<<< HEAD
+<<<<<<< HEAD
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 RUN playwright install --with-deps chromium
 
@@ -32,9 +39,15 @@ COPY ./dynatrace/people.json .
 
 ENTRYPOINT ["locust", "--skip-log-setup"]
 =======
+=======
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
 COPY ./dynatrace/locustfile.py .
 COPY ./dynatrace/people.json .
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 RUN playwright install --with-deps chromium
+<<<<<<< HEAD
 ENTRYPOINT ["locust", "--skip-log-setup"]
 >>>>>>> c20dadc (add dynatrace directory)
+=======
+ENTRYPOINT ["locust", "--skip-log-setup"]
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98

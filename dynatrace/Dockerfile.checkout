@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 FROM golang:1.24-bookworm AS builder
@@ -28,6 +29,8 @@ EXPOSE ${CHECKOUT_PORT}
 ENTRYPOINT [ "./checkout" ]
 #ENTRYPOINT ["/bin/sh", "-c", "'./checkout'"]
 =======
+=======
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
 # Copyright The OpenTelemetry Authors
 # SPDX-License-Identifier: Apache-2.0
 
@@ -55,4 +58,7 @@ COPY --from=builder /go/bin/checkout/ ./
 EXPOSE ${CHECKOUT_PORT}
 ENTRYPOINT ["/bin/sh", "-c", "'./checkout'"]
 
+<<<<<<< HEAD
 >>>>>>> c20dadc (add dynatrace directory)
+=======
+>>>>>>> 1199705fed2e9e7d4391a5e3295b6c80e1638d98
