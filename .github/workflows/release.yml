@@ -10,7 +10,7 @@ on:
 
 jobs:
   tag-from-commit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - id: commit
         uses: prompt/actions-commit-hash@v3
