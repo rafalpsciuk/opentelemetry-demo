@@ -1,7 +1,7 @@
 # Flagd-ui
 
 This application provides a user interface for configuring the feature
-flags of the flagd service.
+flags of the flagd service. Test.
 
 This is a [Next.js](https://nextjs.org/) project.
 
