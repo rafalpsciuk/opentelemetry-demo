@@ -243,6 +243,7 @@ func sendQueryToBackend() ([]*pb.Product, error) {
         return nil, status.Errorf(codes.Internal, st.Message())
     }
     var products []*pb.Product
+	
 
     for _, product := range queryResponse.Results {
 
@@ -253,8 +254,13 @@ func sendQueryToBackend() ([]*pb.Product, error) {
         if err != nil {
              return nil, status.Errorf(codes.Internal, "error parsing the data")
          	}  	// Now jsonData is a map containing the parsed JSON structure 	fmt.Println(jsonData)
+		jsonStr, err := protojson.Marshal(&jsonData)
+		log.Infof("Product: %s", jsonStr)
         products = append(products, &jsonData)
     }
+	
+
+
     log.Infof("Loaded x%d products", len(products))
     return products, nil
 }
