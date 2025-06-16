@@ -17,6 +17,7 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
 	"github.com/sirupsen/logrus"
 
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
@@ -225,6 +226,7 @@ func loadProductCatalog() {
 	}()
 }
 func sendQueryToBackend() ([]*pb.Product, error) {
+	log.Infof("Sending query to DAPR backend")
     query := `{
 
     }`
