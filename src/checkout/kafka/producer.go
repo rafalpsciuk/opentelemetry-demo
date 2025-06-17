@@ -26,14 +26,12 @@ func CreateKafkaProducer(brokers []string, log *logrus.Logger) (sarama.AsyncProd
 	// This setting is to prevent that issue from manifesting itself, but may swallow failed messages.
 	saramaConfig.Producer.RequiredAcks = sarama.NoResponse
 
-	config := sarama.NewConfig()
-	config.Producer.RequiredAcks = sarama.WaitForAll
-	config.Producer.Retry.Max = 5
-	config.Producer.Return.Successes = true
-	config.Metadata.RefreshFrequency = 10 * time.Second
-	config.Net.DialTimeout = 10 * time.Second
-	config.Net.ReadTimeout = 10 * time.Second
-	config.Net.WriteTimeout = 10 * time.Second
+	saramaConfig.Producer.Retry.Max = 5
+	saramaConfig.Producer.Return.Successes = true
+	saramaConfig.Metadata.RefreshFrequency = 10 * time.Second
+	saramaConfig.Net.DialTimeout = 10 * time.Second
+	saramaConfig.Net.ReadTimeout = 10 * time.Second
+	saramaConfig.Net.WriteTimeout = 10 * time.Second
 
 	saramaConfig.Version = ProtocolVersion
 	
