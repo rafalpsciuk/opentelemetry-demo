@@ -27,11 +27,7 @@ func CreateKafkaProducer(brokers []string, log *logrus.Logger) (sarama.AsyncProd
 	saramaConfig.Producer.RequiredAcks = sarama.NoResponse
 
 	saramaConfig.Producer.Retry.Max = 5
-	saramaConfig.Producer.Return.Successes = true
 	saramaConfig.Metadata.RefreshFrequency = 10 * time.Second
-	saramaConfig.Net.DialTimeout = 10 * time.Second
-	saramaConfig.Net.ReadTimeout = 10 * time.Second
-	saramaConfig.Net.WriteTimeout = 10 * time.Second
 
 	saramaConfig.Version = ProtocolVersion
 	
