@@ -24,10 +24,17 @@ func CreateKafkaProducer(brokers []string, log *logrus.Logger) (sarama.AsyncProd
 
 	// Sarama has an issue in a single broker kafka if the kafka broker is restarted.
 	// This setting is to prevent that issue from manifesting itself, but may swallow failed messages.
-	saramaConfig.Producer.RequiredAcks = sarama.NoResponse
+	saramaConfig.Producer.RequiredAcks = sarama.WaitForLocal
 
 	saramaConfig.Producer.Retry.Max = 5
 	saramaConfig.Metadata.RefreshFrequency = 10 * time.Second
+
+	saramaConfig.Producer.Retry.Max = 3
+	saramaConfig.Producer.Retry.Backoff = 500 * time.Millisecond
+	saramaConfig.Net.DialTimeout = 10 * time.Second
+	saramaConfig.Net.ReadTimeout = 10 * time.Second
+	saramaConfig.Net.WriteTimeout = 10 * time.Second
+
 
 	saramaConfig.Version = ProtocolVersion
 	
