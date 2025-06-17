@@ -3,6 +3,8 @@
 package kafka
 
 import (
+	"time"
+
 	"github.com/IBM/sarama"
 	"github.com/sirupsen/logrus"
 )
@@ -16,6 +18,7 @@ func CreateKafkaProducer(brokers []string, log *logrus.Logger) (sarama.AsyncProd
 	sarama.Logger = log
 
 	saramaConfig := sarama.NewConfig()
+	// So we can know the partition and offset of messages.
 	saramaConfig.Producer.Return.Successes = true
 	saramaConfig.Producer.Return.Errors = true
 
@@ -23,11 +26,17 @@ func CreateKafkaProducer(brokers []string, log *logrus.Logger) (sarama.AsyncProd
 	// This setting is to prevent that issue from manifesting itself, but may swallow failed messages.
 	saramaConfig.Producer.RequiredAcks = sarama.NoResponse
 
+	config := sarama.NewConfig()
+	config.Producer.RequiredAcks = sarama.WaitForAll
+	config.Producer.Retry.Max = 5
+	config.Producer.Return.Successes = true
+	config.Metadata.RefreshFrequency = 10 * time.Second
+	config.Net.DialTimeout = 10 * time.Second
+	config.Net.ReadTimeout = 10 * time.Second
+	config.Net.WriteTimeout = 10 * time.Second
+
 	saramaConfig.Version = ProtocolVersion
-
-	// So we can know the partition and offset of messages.
-	saramaConfig.Producer.Return.Successes = true
-
+	
 	producer, err := sarama.NewAsyncProducer(brokers, saramaConfig)
 	if err != nil {
 		return nil, err
