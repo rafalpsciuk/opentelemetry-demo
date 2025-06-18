@@ -78,6 +78,23 @@
       },
       "defaultVariant": "off"
     },
+    "paymentSupportedCardsProblem": {
+      "description": "Supported credit card types",
+      "state": "ENABLED",
+      "variants": {
+        "on": {
+          "visa": "Visa",
+          "mastercard": "Mastercard",
+          "american_express": "American Express"
+        },
+        "off": {
+          "visa": "Visa",
+          "mastercard": "Mastercard",
+          "american-express": "American Express"
+        }
+      },
+      "defaultVariant": "off"
+    },
     "paymentUnreachable": {
       "description": "Payment service is unavailable",
       "state": "ENABLED",
