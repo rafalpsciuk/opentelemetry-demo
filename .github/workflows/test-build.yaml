@@ -8,6 +8,7 @@ on:
       - '!main'
       - '!dynatrace'
       - '!test/dynatrace-dapr'
+      - '!test/kafka-checkout-service'
       
     paths:
       - 'src/**'

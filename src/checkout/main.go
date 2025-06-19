@@ -119,6 +119,22 @@ func initMeterProvider() *sdkmetric.MeterProvider {
 	return mp
 }
 
+func (cs *checkout) restartKafkaClient() error {
+	cs.KafkaProducerClientLock.Lock()
+	defer cs.KafkaProducerClientLock.Unlock()
+
+    if cs.KafkaProducerClient != nil {
+        err := cs.KafkaProducerClient.Close()
+        if err != nil {
+            return err
+        }
+    }
+    var err error
+    cs.KafkaProducerClient, err = kafka.CreateKafkaProducer([]string{cs.kafkaBrokerSvcAddr}, log)
+    return err
+}
+
+
 type checkout struct {
 	productCatalogSvcAddr string
 	cartSvcAddr           string
@@ -129,6 +145,7 @@ type checkout struct {
 	kafkaBrokerSvcAddr    string
 	pb.UnimplementedCheckoutServiceServer
 	KafkaProducerClient     sarama.AsyncProducer
+	KafkaProducerClientLock sync.Mutex
 	shippingSvcClient       pb.ShippingServiceClient
 	productCatalogSvcClient pb.ProductCatalogServiceClient
 	cartSvcClient           pb.CartServiceClient
@@ -525,6 +542,13 @@ func (cs *checkout) sendToPostProcessor(ctx context.Context, result *pb.OrderRes
 			)
 			span.SetStatus(otelcodes.Error, errMsg.Err.Error())
 			log.Errorf("Failed to write message: %v", errMsg.Err)
+			err := cs.restartKafkaClient()
+			log.Warnf("Restarting Kafka client")
+    		if err != nil {
+        		log.Errorf("Failed to restart Kafka client: %v", err)
+    		} else {
+				log.Infof("Kafka client restarted successfully")
+			}
 		case <-ctx.Done():
 			span.SetAttributes(
 				attribute.Bool("messaging.kafka.producer.success", false),
